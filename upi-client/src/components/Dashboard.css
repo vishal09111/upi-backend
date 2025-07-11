@@ -1,0 +1,221 @@
+/* Dashboard.css */
+
+.dashboard-container {
+  padding: 30px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.dashboard-heading {
+  text-align: center;
+  color: #6c47ff;
+  font-size: 2.5rem;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-shadow: 1px 2px 8px #e0e0e0;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(80, 80, 140, 0.12);
+  overflow: hidden;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.dashboard-table th {
+  background: #f0ecff;
+  color: #6c47ff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.dashboard-table tr {
+  transition: background 0.2s;
+}
+
+.dashboard-table tbody tr:hover {
+  background: #f7f3ff;
+}
+
+.dashboard-table input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 1rem;
+  background: #f9f9fc;
+  transition: border 0.2s;
+}
+
+.dashboard-table input:focus {
+  border: 1.5px solid #7d3cff;
+  outline: none;
+}
+
+.action-btn,
+.save-btn,
+.cancel-btn,
+.edit-btn {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.edit-btn {
+  background: #7d3cff;
+  color: #fff;
+  margin-right: 6px;
+  box-shadow: 0 2px 8px rgba(125, 60, 255, 0.08);
+}
+
+.edit-btn:hover {
+  background: #5e2ecf;
+}
+
+.save-btn {
+  background: #2ecc71;
+  color: #fff;
+  margin-right: 5px;
+  box-shadow: 0 2px 8px rgba(46, 204, 113, 0.08);
+}
+
+.save-btn:hover {
+  background: #27ae60;
+}
+
+.cancel-btn {
+  background: #e74c3c;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.08);
+}
+
+.cancel-btn:hover {
+  background: #c0392b;
+}
+.form-overlay {
+  width: 100%;
+  padding: 30px 20px;
+  background-color: #f5f3ff;
+  border-radius: 16px;
+  margin-top: 20px;
+  animation: slideFade 0.4s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.form-expanded {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-expanded-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #6a0dad;
+}
+
+.form-expanded-header h2 {
+  color: #6a0dad;
+  font-size: 24px;
+  margin: 0;
+}
+
+.form-close-btn {
+  background-color: crimson;
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.form-close-btn:hover {
+  background-color: #a30000;
+}
+
+.expanded-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.expanded-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.expanded-form .form-row label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 250px;
+  font-size: 14px;
+  color: #333;
+}
+
+.expanded-form input,
+.expanded-form select {
+  padding: 10px 12px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.expanded-form input:focus,
+.expanded-form select:focus {
+  border-color: #6a0dad;
+  outline: none;
+  box-shadow: 0 0 4px rgba(106, 13, 173, 0.2);
+}
+
+.submit-btn {
+  background-color: #6a0dad;
+  color: white;
+  font-weight: bold;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #4e0e9d;
+  box-shadow: 0 0 8px rgba(106, 13, 173, 0.3);
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
