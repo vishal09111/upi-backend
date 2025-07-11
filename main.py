@@ -12,6 +12,9 @@ from fastapi.middleware.cors import CORSMiddleware
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+@app.get("/")
+def root():
+    return {"message": "Welcome to the UPI Transaction API!"}
 
 SECRET_KEY = "your-secret-key"
 ALGORITHM = "HS256"
