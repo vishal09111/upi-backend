@@ -48,7 +48,7 @@ function Login() {
         "https://upitransaction.onrender.com/login",
         new URLSearchParams({ username, password }),
         {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          headers: { "Content-Type": "application/json" },
         }
       );
       const { access_token } = response.data;

@@ -3,7 +3,7 @@ import axios from "axios";
 
 function TransactionList({ token }) {
   const [transactions, setTransactions] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState("");   
 
   useEffect(() => {
     const fetchTxns = async () => {

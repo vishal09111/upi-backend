@@ -7,6 +7,7 @@ from passlib.context import CryptContext
 import models, schemas
 from database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -25,7 +26,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://upi-frontend-lake.vercel.app/"],  # or replace "*" with ["http://localhost:3000"] for safety
+    allow_origins=["https://upi-frontend-lake.vercel.app"],  # or replace "*" with ["http://localhost:3000"] for safety
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -92,7 +93,22 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid credentials")
     token = create_access_token(data={"sub": user.username})
-    return {"access_token": token, "token_type": "bearer"}
+ 
+    response = JSONResponse(
+        content={"access_token": token, "token_type": "bearer"}
+    )
+    
+    # Set secure cookie for production
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {token}",
+        httponly=True,
+        secure=True,  # Only send over HTTPS
+        samesite="none",
+        max_age=1800  # 30 minutes
+    )
+    
+    return response
 
 
 @app.post("/upi/add", response_model=schemas.UPITransactionOut)
