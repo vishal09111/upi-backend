@@ -25,7 +25,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # or replace "*" with ["http://localhost:3000"] for safety
+    allow_origins=["https://upi-frontend-lake.vercel.app/"],  # or replace "*" with ["http://localhost:3000"] for safety
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

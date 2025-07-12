@@ -48,7 +48,7 @@ function Dashboard() {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/upi", {
+      const response = await axios.get("https://upitransaction.onrender.com/", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const sorted = response.data.sort((a, b) => new Date(b.Date) - new Date(a.Date));
@@ -69,7 +69,7 @@ function Dashboard() {
 
   const handleEditSubmit = async () => {
     try {
-      await axios.put(`http://localhost:8000/upi/${editingId}`, editForm, {
+      await axios.put(`https://upitransaction.onrender.com/upi/${editingId}`, editForm, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEditingId(null);
@@ -90,7 +90,7 @@ function Dashboard() {
   const handleNewTxnSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/upi/add", newTxn, {
+      await axios.post("https://upitransaction.onrender.com/upi/add", newTxn, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNewTxn({ Date: new Date(), Sender_Bank: "", Reciever_bank: "", Amount_transferd: "",

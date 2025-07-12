@@ -35,7 +35,7 @@ function AddTransaction({ onSuccess }) {
     setMessage("");
 
     try {
-      await axios.post("http://localhost:8000/upi/add", formData, {
+      await axios.post("https://upitransaction.onrender.com/upi/add", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

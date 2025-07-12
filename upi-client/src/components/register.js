@@ -51,7 +51,7 @@ function Register() {
     setMessage("");
     setLoading(true);
     try {
-      await axios.post("http://localhost:8000/register", { ...formData });
+      await axios.post("https://upitransaction.onrender.com/register", { ...formData });
       setMessage("✅ Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/"), 2000);
     } catch (err) {

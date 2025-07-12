@@ -8,7 +8,7 @@ function TransactionList({ token }) {
   useEffect(() => {
     const fetchTxns = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/upi", {
+        const res = await axios.get("https://upitransaction.onrender.com/upi", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
