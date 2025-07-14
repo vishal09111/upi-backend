@@ -8,7 +8,8 @@ import models, schemas
 from database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-
+from typing import Dict
+from fastapi import Response
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -96,28 +97,29 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return {"message": "Registered successfully"}
 
 
-@app.post("/login")
+@app.post("/login", response_model=Dict[str, str])
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.username == form_data.username).first()
     if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid credentials")
     token = create_access_token(data={"sub": user.username})
  
-    response = JSONResponse(
-        content={"access_token": token, "token_type": "bearer"}
-    )
+    # # response = JSONResponse(
+    # #     content={"access_token": token, "token_type": "bearer"}
+    # )
     
     # Set secure cookie for production
-    response.set_cookie(
-        key="access_token",
-        value=f"Bearer {token}",
-        httponly=True,
-        secure=True,  # Only send over HTTPS
-        samesite="none",
-        max_age=1800  # 30 minutes
-    )
+    # response.set_cookie(
+    #     key="access_token",
+    #     value=f"Bearer {token}",
+    #     httponly=True,
+    #     secure=True,  # Only send over HTTPS
+    #     samesite="none",
+    #     max_age=1800  # 30 minutes
+    # )
     
-    return response
+    
+    return {"access_token": token, "token_type": "bearer"}
 
 
 @app.post("/upi/add", response_model=schemas.UPITransactionOut)
@@ -128,8 +130,7 @@ def add_upi_transaction(txn: schemas.UPITransactionCreate, db: Session = Depends
     db.add(db_txn)
     db.commit()
     db.refresh(db_txn)
-    return db_txn
-
+    return schemas.UPITransactionOut.from_orm(db_txn)
 
 
 @app.get("/upi", response_model=list[schemas.UPITransactionOut])

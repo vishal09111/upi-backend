@@ -12,6 +12,11 @@ import { saveAs } from "file-saver";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "./Dashboard.css";
+import { useNavigate } from "react-router-dom";
+
+
+
+
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -20,6 +25,13 @@ function Dashboard() {
   const [showForm, setShowForm] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const navigate = useNavigate();
+
+const handleAddClick = () => {
+  navigate("/add-transaction");
+};
+
 
   const [newTxn, setNewTxn] = useState({
     Date: new Date(), Sender_Bank: "", Reciever_bank: "", Amount_transferd: "",
@@ -90,7 +102,7 @@ function Dashboard() {
   const handleNewTxnSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://upitransaction.onrender.com/upi/add", newTxn, {
+      await axios.post("https://upitransaction.onrender.com/upi/add-transaction", newTxn, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNewTxn({ Date: new Date(), Sender_Bank: "", Reciever_bank: "", Amount_transferd: "",
@@ -132,7 +144,8 @@ function Dashboard() {
       {!isAdmin && (
         <div className="form-toggle">
           {!showForm ? (
-            <button className="primary-btn" onClick={() => setShowForm(true)}>➕ Add New Transaction</button>
+            <button className="primary-btn" onClick={handleAddClick}>➕ Add New Transaction</button>
+
           ) : (
             <div className="form-overlay">
               <div className="form-expanded">

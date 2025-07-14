@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,8 +12,8 @@ function AddTransaction({ onSuccess }) {
   let username = "";
 
   try {
-      const decoded = jwtDecode(token);;
-    username = decoded.sub; // Change this if your JWT uses another field
+    const decoded = jwtDecode(token);
+    username = decoded.sub;
   } catch (e) {
     console.error("Invalid token");
   }
@@ -48,6 +50,11 @@ function AddTransaction({ onSuccess }) {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleDateChange = (date) => {
+    const formatted = date.toISOString().split("T")[0];
+    setFormData((prev) => ({ ...prev, Date: formatted }));
   };
 
   const handleSubmit = async (e) => {
@@ -116,7 +123,24 @@ function AddTransaction({ onSuccess }) {
             <div key={key}>
               <label style={{ display: "block", marginBottom: "5px" }}>{key}</label>
 
-              {isDropdown ? (
+              {key === "Date" ? (
+                <DatePicker
+                  selected={new Date(formData.Date)}
+                  onChange={handleDateChange}
+                  dateFormat="yyyy-MM-dd"
+                  className="form-control"
+                  required
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    marginBottom: "15px",
+                    borderRadius: "6px",
+                    border: "1px solid #333",
+                    backgroundColor: "#2b2b2b",
+                    color: "#fff",
+                  }}
+                />
+              ) : isDropdown ? (
                 <select
                   name={key}
                   value={formData[key]}
@@ -141,7 +165,7 @@ function AddTransaction({ onSuccess }) {
                 </select>
               ) : (
                 <input
-                  type={key === "Date" ? "date" : "text"}
+                  type="text"
                   name={key}
                   value={formData[key]}
                   onChange={handleChange}

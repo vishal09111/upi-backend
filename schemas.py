@@ -30,9 +30,10 @@ class UPITransactionCreate(BaseModel):
     Device_type: str
     Age: int
     Status: str
-    Sender_Name: str
+    # Sender_Name: str
     Receiver_Name: str
 
 class UPITransactionOut(UPITransactionCreate):
-    class Config:
-        from_attributes = True  # <- replaces orm_mode
+      Sender_Name: str
+      class Config:
+        orm_mode = True   # <- replaces orm_mode
