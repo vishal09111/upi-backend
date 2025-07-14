@@ -24,9 +24,18 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
+# main.py (or wherever you define CORS)
+origins = [
+    "https://upi-frontend-lake.vercel.app",
+    "https://upi-frontend-git-master-vishals-projects-3a0d8075.vercel.app",  # Add this
+    "http://localhost:3000"
+]
+
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://upi-frontend-lake.vercel.app"],  # or replace "*" with ["http://localhost:3000"] for safety
+    allow_origins=origins,  # or replace "*" with ["http://localhost:3000"] for safety
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
