@@ -37,7 +37,7 @@ class UPITransactionCreate(BaseModel):
 class UserOut(BaseModel):
     username: str
     role: str
-    created_at: date
+    created_at: datetime
     class Config:
         orm_mode = True 
 
