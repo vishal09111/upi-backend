@@ -15,6 +15,9 @@ from models import UPITransaction
 from schemas import UPITransactionOut
 from database import get_db
 from typing import List
+from models import User 
+from schemas import UserOut
+
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -147,6 +150,11 @@ def list_upi_transactions(db: Session = Depends(get_db), user: models.User = Dep
 @app.get("/upi-public", response_model=List[UPITransactionOut])
 def get_all_transactions_public(db: Session = Depends(get_db)):
     return db.query(UPITransaction).all()
+
+@app.get("/users-public", response_model=List[UserOut])
+def get_all_users(db: Session = Depends(get_db)):
+    return db.query(User).all()
+
 
 
 @app.put("/upi/{transaction_id}", response_model=schemas.UPITransactionOut)

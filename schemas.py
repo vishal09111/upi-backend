@@ -33,6 +33,12 @@ class UPITransactionCreate(BaseModel):
     # Sender_Name: str
     Receiver_Name: str
 
+
+class UserOut(BaseModel):
+    username: str
+    role: str
+    created_at: date
+
 class UPITransactionOut(UPITransactionCreate):
       Sender_Name: str
       class Config:
