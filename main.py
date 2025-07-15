@@ -151,10 +151,11 @@ def list_upi_transactions(db: Session = Depends(get_db), user: models.User = Dep
 def get_all_transactions_public(db: Session = Depends(get_db)):
     return db.query(UPITransaction).all()
 
-@app.get("/users-public", response_model=List[UserOut])
-def get_all_users(db: Session = Depends(get_db)):
-    return db.query(User).all()
 
+@app.get("/users-public", response_model=List[UserOut])
+def get_users(db: Session = Depends(get_db)):
+    users = db.query(User).all()
+    return [UserOut.from_orm(user) for user in users]
 
 
 @app.put("/upi/{transaction_id}", response_model=schemas.UPITransactionOut)
