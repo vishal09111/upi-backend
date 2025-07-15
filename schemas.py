@@ -38,6 +38,8 @@ class UserOut(BaseModel):
     username: str
     role: str
     created_at: date
+    class Config:
+        orm_mode = True 
 
 class UPITransactionOut(UPITransactionCreate):
       Sender_Name: str
