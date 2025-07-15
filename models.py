@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String, Date,DateTime,func
 from database import Base
+# from sqlalchemy import Column, DateTime, func
 
 class User(Base):
     __tablename__ = "users"
@@ -9,6 +10,7 @@ class User(Base):
     phone_number = Column(String(20))
     hashed_password = Column(String(100), nullable=False)
     role = Column(String(10), default="user")
+    created_at = Column(DateTime, default=func.now())
 
 class UPITransaction(Base):
     __tablename__ = "upi_transaction"
