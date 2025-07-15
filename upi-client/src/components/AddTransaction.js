@@ -3,11 +3,10 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function AddTransaction({ onSuccess }) {
+function AddTransaction({ onSuccess, onClose }) {
   const token = localStorage.getItem("token");
   let username = "";
 
@@ -52,8 +51,15 @@ function AddTransaction({ onSuccess }) {
     }));
   };
 
+  const formatDateToYYYYMMDD = (date) => {
+    const year = date.getFullYear();
+    const month = (`0${date.getMonth() + 1}`).slice(-2);
+    const day = (`0${date.getDate()}`).slice(-2);
+    return `${year}-${month}-${day}`;
+  };
+
   const handleDateChange = (date) => {
-    const formatted = date.toISOString().split("T")[0];
+    const formatted = formatDateToYYYYMMDD(date);
     setFormData((prev) => ({ ...prev, Date: formatted }));
   };
 
@@ -112,8 +118,29 @@ function AddTransaction({ onSuccess }) {
         borderRadius: "10px",
         boxShadow: "0 0 10px rgba(125,60,255,0.2)",
         color: "#fff",
+        position: "relative",
       }}
     >
+      {/* Close button */}
+      {onClose && (
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: "15px",
+            right: "15px",
+            background: "transparent",
+            border: "none",
+            fontSize: "24px",
+            color: "#aaa",
+            cursor: "pointer",
+          }}
+          title="Close"
+        >
+          ❌
+        </button>
+      )}
+
       <h2 style={{ textAlign: "center" }}>➕ Add UPI Transaction</h2>
       <form onSubmit={handleSubmit}>
         {Object.keys(formData).map((key) => {

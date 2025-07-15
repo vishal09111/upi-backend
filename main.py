@@ -9,7 +9,12 @@ from database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import Dict
+# for power bi
 from fastapi import Response
+from models import UPITransaction 
+from schemas import UPITransactionOut
+from database import get_db
+from typing import List
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -138,6 +143,10 @@ def list_upi_transactions(db: Session = Depends(get_db), user: models.User = Dep
     if user.role == "admin":
         return db.query(models.UPITransaction).all()
     return db.query(models.UPITransaction).filter(models.UPITransaction.Sender_Name == user.username).all()
+
+@app.get("/upi-public", response_model=List[UPITransactionOut])
+def get_all_transactions_public(db: Session = Depends(get_db)):
+    return db.query(UPITransaction).all()
 
 
 @app.put("/upi/{transaction_id}", response_model=schemas.UPITransactionOut)
