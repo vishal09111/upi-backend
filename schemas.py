@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date
+from datetime import datetime,date
 
 # ===== User Schemas =====
 
